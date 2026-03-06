@@ -43,7 +43,7 @@ def is_job_seen(job_id: str) -> bool:
     return result is not None
 
 
-def save_job(job_id: str, title: str, company: str, location: str, platform: str, url: str):
+def save_job(job_id: str, title: str, company: str, location: str, platform: str, url: str, **kwargs):
     """Save a newly seen job."""
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
