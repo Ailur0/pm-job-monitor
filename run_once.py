@@ -1,7 +1,5 @@
 """
-run_once.py
------------
-Used by GitHub Actions. Runs one full monitor cycle and exits.
+run_once.py — Used by GitHub Actions. Runs one full cycle and exits.
 """
 
 import os
@@ -14,11 +12,12 @@ from linkedin_bot import run_linkedin_monitor
 from unstop_bot import run_unstop_monitor
 from wellfound_bot import run_wellfound_monitor
 from career_pages_bot import run_career_pages_monitor
+from pm_programs_bot import run_pm_programs_monitor
 from config import (
     MONITOR_INTERNSHALA, MONITOR_NAUKRI, MONITOR_LINKEDIN,
     MONITOR_UNSTOP, MONITOR_WELLFOUND, MONITOR_CAREER_PAGES,
-    AUTO_APPLY_INTERNSHALA, JOB_KEYWORDS, JOB_LOCATIONS,
-    TELEGRAM_BOT_TOKEN,
+    MONITOR_PM_PROGRAMS, AUTO_APPLY_INTERNSHALA,
+    JOB_KEYWORDS, JOB_LOCATIONS, TELEGRAM_BOT_TOKEN,
 )
 
 
@@ -71,6 +70,12 @@ def main():
             run_career_pages_monitor()
         except Exception as e:
             print(f"❌ Career pages error: {e}")
+
+    if MONITOR_PM_PROGRAMS:
+        try:
+            run_pm_programs_monitor()
+        except Exception as e:
+            print(f"❌ PM programs error: {e}")
 
     count = get_today_apply_count()
     print(f"\n✅ Cycle complete | Alerts sent today: {count}")

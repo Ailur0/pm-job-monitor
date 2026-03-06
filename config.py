@@ -94,3 +94,19 @@ PRIORITY_KEYWORDS = [
 MONITOR_UNSTOP = True
 MONITOR_WELLFOUND = True
 MONITOR_CAREER_PAGES = True
+
+# --- PM PROGRAMS ---
+MONITOR_PM_PROGRAMS = True
+
+# These keywords are added to job board searches (Internshala, Naukri, LinkedIn)
+PROGRAM_SEARCH_KEYWORDS = [
+    "APM program",
+    "associate product manager program",
+    "PM fellowship",
+    "product management fellowship",
+    "product management trainee program",
+    "rotational product manager",
+    "product manager new grad",
+    "product management graduate program",
+    "product management apprenticeship",
+]
