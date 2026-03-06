@@ -1,0 +1,7 @@
+# Never commit these
+__pycache__/
+*.pyc
+.env
+
+# jobs.db is committed intentionally (tracks seen jobs)
+# so do NOT add it here
