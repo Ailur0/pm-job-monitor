@@ -89,3 +89,8 @@ PRIORITY_KEYWORDS = [
     "associate", "APM", "entry level", "graduate",
     "ppo", "pre placement", "pre-placement offer"
 ]
+
+# --- NEW PLATFORMS ---
+MONITOR_UNSTOP = True
+MONITOR_WELLFOUND = True
+MONITOR_CAREER_PAGES = True

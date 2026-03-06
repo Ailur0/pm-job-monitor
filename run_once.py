@@ -2,10 +2,6 @@
 run_once.py
 -----------
 Used by GitHub Actions. Runs one full monitor cycle and exits.
-GitHub Actions triggers this every 5 minutes via cron schedule.
-
-The SQLite database is committed back to the repo after each run
-so seen jobs are remembered across runs.
 """
 
 import os
@@ -15,15 +11,14 @@ from database import init_db, get_today_apply_count
 from internshala_bot import run_internshala_monitor
 from naukri_bot import run_naukri_monitor
 from linkedin_bot import run_linkedin_monitor
+from unstop_bot import run_unstop_monitor
+from wellfound_bot import run_wellfound_monitor
+from career_pages_bot import run_career_pages_monitor
 from config import (
-    MONITOR_INTERNSHALA,
-    MONITOR_NAUKRI,
-    MONITOR_LINKEDIN,
-    AUTO_APPLY_INTERNSHALA,
-    JOB_KEYWORDS,
-    JOB_LOCATIONS,
+    MONITOR_INTERNSHALA, MONITOR_NAUKRI, MONITOR_LINKEDIN,
+    MONITOR_UNSTOP, MONITOR_WELLFOUND, MONITOR_CAREER_PAGES,
+    AUTO_APPLY_INTERNSHALA, JOB_KEYWORDS, JOB_LOCATIONS,
     TELEGRAM_BOT_TOKEN,
-    TELEGRAM_CHAT_ID,
 )
 
 
@@ -35,15 +30,12 @@ def main():
     print(f"   Locations: {', '.join(JOB_LOCATIONS)}")
     print(f"{'='*55}\n")
 
-    # Validate Telegram config
     if not TELEGRAM_BOT_TOKEN or TELEGRAM_BOT_TOKEN == "YOUR_TELEGRAM_BOT_TOKEN":
-        print("❌ Telegram not configured. Set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID in GitHub Secrets.")
+        print("❌ Telegram not configured.")
         sys.exit(1)
 
-    # Init DB (creates jobs.db if not exists)
     init_db()
 
-    # Run all monitors once
     if MONITOR_INTERNSHALA:
         try:
             run_internshala_monitor(auto_apply=AUTO_APPLY_INTERNSHALA)
@@ -61,6 +53,24 @@ def main():
             run_linkedin_monitor()
         except Exception as e:
             print(f"❌ LinkedIn error: {e}")
+
+    if MONITOR_UNSTOP:
+        try:
+            run_unstop_monitor()
+        except Exception as e:
+            print(f"❌ Unstop error: {e}")
+
+    if MONITOR_WELLFOUND:
+        try:
+            run_wellfound_monitor()
+        except Exception as e:
+            print(f"❌ Wellfound error: {e}")
+
+    if MONITOR_CAREER_PAGES:
+        try:
+            run_career_pages_monitor()
+        except Exception as e:
+            print(f"❌ Career pages error: {e}")
 
     count = get_today_apply_count()
     print(f"\n✅ Cycle complete | Alerts sent today: {count}")
