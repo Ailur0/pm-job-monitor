@@ -43,6 +43,13 @@ FRESHER_ALLOWLIST = [
     r"\bapm\s+program\b",
     r"\bgraduate\s+program\b",
     r"\bcampus\s+hire\b",
+    # PPO specific
+    r"\bppo\b",
+    r"\bpre[\s-]placement\s+offer\b",
+    r"\bpre[\s-]placement\s+opportunity\b",
+    r"\bfull[\s-]time\s+offer\b",
+    r"\bconvert(ed|ible)?\s+to\s+full[\s-]time\b",
+    r"\bintern.*full[\s-]time\b",
 ]
 
 

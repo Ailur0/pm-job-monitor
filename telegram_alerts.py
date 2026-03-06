@@ -24,8 +24,16 @@ def send_telegram_alert(message: str):
 def send_job_alert(platform: str, title: str, company: str, location: str, url: str, applied: bool = False):
     """Send a formatted job alert."""
     status = "✅ *AUTO-APPLIED*" if applied else "🔔 *NEW JOB — Apply Now!*"
+
+    # Flag PPO roles
+    ppo_flag = ""
+    if any(kw in title.lower() for kw in ["ppo", "pre placement", "pre-placement"]):
+        ppo_flag = "\n💼 *PPO OPPORTUNITY*"
+    elif any(kw in platform.lower() for kw in ["ppo", "pre placement"]):
+        ppo_flag = "\n💼 *PPO OPPORTUNITY*"
+
     message = f"""
-{status}
+{status}{ppo_flag}
 
 📌 *{title}*
 🏢 {company}
